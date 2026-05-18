@@ -1,5 +1,8 @@
 import random
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
+HEADLESS = os.getenv("HEADLESS", "true").lower() == "true"
 from playwright.async_api import (
     async_playwright
 )
@@ -22,7 +25,7 @@ class PlaywrightBookingAttractionsScraper(
         async with async_playwright() as p:
 
             browser = await p.chromium.launch(
-                headless=False,
+                 headless= HEADLESS,
                 args=[
                     "--disable-blink-features=AutomationControlled"
                 ]
